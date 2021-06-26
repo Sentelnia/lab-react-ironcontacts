@@ -17,6 +17,7 @@ class App extends React.Component {
 
   randomContact = () => {
     let number = Math.round(Math.random()*contacts.length)
+    
     let newContact = contacts[number]
     let contactsCopy = [...this.state.Contacts]
     contactsCopy.push(newContact)
