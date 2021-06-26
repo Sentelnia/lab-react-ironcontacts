@@ -3,20 +3,17 @@ import './App.css';
 import contacts from './contacts.json';
 /// contacts
 let bestContact = contacts.splice(0, 5);
-
 ///// iteration1//////
-
 class App extends React.Component {
   state = {
     Contacts: bestContact,
   };
 ////////// iteration 2////////////
   randomContact = () => {
-    let number = Math.round(Math.random()*contacts.length)
-    
-    let newContact = contacts[number]
-    let contactsCopy = [...this.state.Contacts]
-    contactsCopy.push(newContact)
+    let number = Math.round(Math.random() * contacts.length);
+    let newContact = contacts[number];
+    let contactsCopy = [...this.state.Contacts];
+    contactsCopy.push(newContact);
     this.setState({
       Contacts: contactsCopy,
     });
@@ -40,6 +37,15 @@ class App extends React.Component {
       Contacts: contactSortPopularity,
     });
   };
+  //////// iteration 4///////////
+  delete = id => {
+    const contactsCopy = this.state.Contacts;
+    const contactIndex = contactsCopy.findIndex(item => item.id === id);
+    contactsCopy.splice(contactIndex, 1);
+    this.setState({
+      Contacts: contactsCopy,
+    })
+  }
   render() {
     console.log('render');
     return (
@@ -53,6 +59,7 @@ class App extends React.Component {
               <th>Picture</th>
               <th>Name</th>
               <th>Popularity</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +71,7 @@ class App extends React.Component {
                 </td>
                 <td>{contact.name}</td>
                 <td>{contact.popularity}</td>
+                <td><button onClick={(e)=>this.delete(contact.id)}>Delete</button></td>
               </tr>
             ))}
           </tbody>
@@ -72,5 +80,4 @@ class App extends React.Component {
     );
   }
 }
-
 export default App;
