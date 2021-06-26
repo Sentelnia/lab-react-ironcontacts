@@ -14,9 +14,24 @@ class App extends React.Component {
   state = {
     Contacts:bestContact 
   }
+
+  randomContact = () => {
+    let number = Math.round(Math.random()*contacts.length)
+    let newContact = contacts[number]
+    let contactsCopy = [...this.state.Contacts]
+    contactsCopy.push(newContact)
+    this.setState({
+      Contacts: contactsCopy
+    })
+    console.log(this.state.Contacts)
+  }
+
   render() {
+    console.log('render')
    return(
-    <table>
+    <div>
+    <button onClick={this.randomContact}>Add Random Contact</button>
+      <table>
     <thead>
       <tr>
         <th>Picture</th>
@@ -25,15 +40,17 @@ class App extends React.Component {
       </tr>
     </thead>
     <tbody>
-    {bestContact.map(contact => (
+    {this.state.Contacts.map(contact => (
       <tr key={contact.id}>
-        <td> <img src={contact.pictureUrl}/></td>
+        <td> <img src={contact.pictureUrl} alt='profilPic'/></td>
         <td>{contact.name}</td>
         <td>{contact.popularity}</td>
       </tr>
     ))}
     </tbody>
   </table>
+    </div>
+    
    )
     ;
   }
